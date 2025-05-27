@@ -1,22 +1,8 @@
-package com.domhelder.reserve.entity;
+package com.domhelder.reserve.dto;
 
-import jakarta.persistence.*;
-
-import java.util.UUID;
-
-@Entity
-
-public class Sala {
-    public Sala() {}
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+public class SalaDTO {
     private String nomeSala;
-
     private int predio;
-
     private int andar;
 
     public String getNomeSala() {
@@ -42,6 +28,4 @@ public class Sala {
     public void setAndar(int andar) {
         this.andar = andar;
     }
-
-    public UUID getId() {return id;}
 }

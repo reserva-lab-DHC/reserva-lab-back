@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> deletarReserva(@RequestBody UserDTO userDTO){
+    public ResponseEntity<User> criarReserva(@RequestBody UserDTO userDTO){
        User createdUser = userService.createUser(userDTO);
        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
