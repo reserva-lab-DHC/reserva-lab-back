@@ -24,13 +24,13 @@ public class SalaController {
     }
 
     
-    @PostMapping("/criar")
+    @PostMapping()
     public ResponseEntity<Sala> criarSala(@RequestBody SalaDTO salaDTO){
         Sala createdSala = salaService.createSala(salaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSala);
     }
    
-    @GetMapping("/ler/{uuidString}")
+    @GetMapping("/{uuidString}")
     public ResponseEntity<Sala> getSalaById(@PathVariable String uuidString) {
         try {
             UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
@@ -46,7 +46,7 @@ public class SalaController {
         return new String();
     }
 
-    @PutMapping("/editar/{uuidString}")
+    @PutMapping("/{uuidString}")
     public ResponseEntity<?> editarSala(
         @PathVariable String uuidString,
         @RequestBody SalaDTO salaDTO) {
@@ -66,7 +66,7 @@ public class SalaController {
     }
     }
 
-    @DeleteMapping("/deletar/{uuidString}")
+    @DeleteMapping("/{uuidString}")
     public ResponseEntity<String> deleteSala(@PathVariable String uuidString) {
         try {
             UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
@@ -82,8 +82,6 @@ public class SalaController {
     }
     
 
-//    @GetMapping
-//    public ResponseEntity<User> getUserById(@RequestMapping )
 
 
 }

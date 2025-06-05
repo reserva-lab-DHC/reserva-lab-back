@@ -26,14 +26,14 @@ public class ReservaController {
     }
 
     @PostMapping
-    @RequestMapping("/criar")
+    @RequestMapping()
     public ResponseEntity<Reserva> criarReserva(@RequestBody ReservaDTO reservaDTO) {
         Reserva reservaCriada = reservaService.createReserva(reservaDTO);
         return new ResponseEntity<>(reservaCriada, HttpStatus.CREATED);
     }
 
     @GetMapping
-    @RequestMapping("/{uuid}/{status}")
+    @RequestMapping("/{status}")
     public ResponseEntity<List<Reserva>> listReservasBySala(
             @PathVariable UUID uuid,
             @PathVariable StatusReserva status){
@@ -42,7 +42,7 @@ public class ReservaController {
     }
 
     @PutMapping
-    @RequestMapping("/editar/{uuidString}")
+    @RequestMapping("/{uuidString}")
     public ResponseEntity<?> editarReserva(
             @PathVariable String uuidString, 
             @RequestBody ReservaDTO reservaDTO) {
@@ -61,7 +61,7 @@ public class ReservaController {
  }
 
     @DeleteMapping
-    @RequestMapping("/deletar/{uuidString}")
+    @RequestMapping("/{uuidString}")
     public ResponseEntity<?> deletarReserva(@PathVariable String uuidString) {
         try {
             UUID uuid = UUIDutils.convertStringtoUUID(uuidString);

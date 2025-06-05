@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/criar")
+    @PostMapping()
     public ResponseEntity<User> criarUser(@RequestBody UserDTO userDTO) {
         try {
             User createdUser = userService.createUser(userDTO);
@@ -33,7 +33,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/ler/{uuidString}")
+    @GetMapping("/{uuidString}")
     public ResponseEntity<User> getUserById(@PathVariable String uuidString) {
         try {
             // Converte a string UUID para um objeto UUID
@@ -46,7 +46,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/editar/{uuidString}")
+    @PutMapping("/{uuidString}")
     public ResponseEntity<?> editarUser(
             @PathVariable String uuidString,
             @RequestBody UserDTO userDTO) {
@@ -62,7 +62,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/deletar/{uuidString}")
+    @DeleteMapping("/{uuidString}")
     public ResponseEntity<?> deletarUser(@PathVariable String uuidString) {
         try {
             // Converte a string UUID para um objeto UUID
