@@ -36,6 +36,16 @@ public class SalaService {
         
         return salaRepository.save(salaEditada);
    }
+   
+    public Sala getSalaById(UUID uuid) {
+        return salaRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Sala não encontrada com o UUID: " + uuid));
+    }
+    public void deleteSala(UUID uuid) {
+        Sala sala = salaRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Sala não encontrada com o UUID: " + uuid));
+        salaRepository.delete(sala);
+    }
 
 
 }

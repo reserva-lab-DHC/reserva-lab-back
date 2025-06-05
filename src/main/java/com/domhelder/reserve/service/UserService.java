@@ -15,6 +15,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    // Create
     public User createUser(UserDTO userDTO){
         User user = new User();
         user.setUserName(userDTO.getUserName());
@@ -24,6 +25,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // Update
     public User updateUser(UUID uuid, UserDTO userDTO) {
         User user = userRepository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + uuid));
@@ -34,6 +36,20 @@ public class UserService {
         
         return userRepository.save(user);
     }
+
+    // Read
+    public User getUserById(UUID uuid) {
+        return userRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + uuid));
+    }
+
+    // Delete
+    public void deleteUser(UUID uuid) {
+        User user = userRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + uuid));
+        userRepository.delete(user);
+    }
+    
 
     
 

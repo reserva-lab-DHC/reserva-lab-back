@@ -1,11 +1,8 @@
 package com.domhelder.reserve.controller;
 
 import com.domhelder.reserve.dto.SalaDTO;
-import com.domhelder.reserve.dto.UserDTO;
 import com.domhelder.reserve.entity.Sala;
-import com.domhelder.reserve.entity.User;
 import com.domhelder.reserve.service.SalaService;
-import com.domhelder.reserve.service.UserService;
 import com.domhelder.reserve.utils.UUIDutils;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -26,10 +23,27 @@ public class SalaController {
         this.salaService = salaService;
     }
 
-    @PostMapping
+    
+    @PostMapping("/criar")
     public ResponseEntity<Sala> criarSala(@RequestBody SalaDTO salaDTO){
         Sala createdSala = salaService.createSala(salaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSala);
+    }
+   
+    @GetMapping("/ler/{uuidString}")
+    public ResponseEntity<Sala> getSalaById(@PathVariable String uuidString) {
+        try {
+            UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
+            Sala sala = salaService.getSalaById(uuid);
+            return ResponseEntity.ok(sala);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null); // Retorna HTTP 404 se a sala não for encontrada
+        }
+    }
+
+    public String requestMethodName(@RequestParam String param) {
+        return new String();
     }
 
     @PutMapping("/editar/{uuidString}")
@@ -50,10 +64,21 @@ public class SalaController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Erro ao editar sala: " + e.getMessage()); // HTTP 500
     }
-}
+    }
 
-    public String requestMethodName(@RequestParam String param) {
-        return new String();
+    @DeleteMapping("/deletar/{uuidString}")
+    public ResponseEntity<String> deleteSala(@PathVariable String uuidString) {
+        try {
+            UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
+            salaService.deleteSala(uuid);
+            return ResponseEntity.ok("Sala deletada com sucesso");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Erro: Sala não encontrada para o UUID: " + uuidString); // HTTP 404
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao deletar sala: " + e.getMessage()); // HTTP 500
+        }
     }
     
 

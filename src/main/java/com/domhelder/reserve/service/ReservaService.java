@@ -27,6 +27,7 @@ public class ReservaService {
         this.salaRepository = salaRepository;
     }
 
+    // Create 
     public Reserva createReserva(ReservaDTO reservaDTO) {
         Reserva reserva = new Reserva();
 
@@ -57,7 +58,7 @@ public class ReservaService {
 
         return reservaRepository.save(reserva);
     }
-
+    // Read
     public List<Reserva> listReservaBySala(UUID uuid, StatusReserva status){
         if (StatusReserva.ALL.equals(status)){
             return reservaRepository.findBySalaReservada_Id(uuid);
@@ -67,6 +68,7 @@ public class ReservaService {
         }
     }
 
+    // Update
     public Reserva editarReserva(UUID uuid,ReservaDTO reservaDTO) {
         Reserva reserva = reservaRepository.findById(uuid)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
@@ -93,6 +95,14 @@ public class ReservaService {
         reserva.setDataConclusao(reservaDTO.getDataConclusao());
 
         return reservaRepository.save(reserva);
+    }
+
+    // Delete
+    public void deleteReserva(UUID uuid){
+        Reserva reserva = reservaRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+        reservaRepository.delete(reserva);
+
     }
 
 }

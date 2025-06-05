@@ -1,16 +1,13 @@
 package com.domhelder.reserve.controller;
 
 import com.domhelder.reserve.dto.ReservaDTO;
-import com.domhelder.reserve.dto.SalaDTO;
 import com.domhelder.reserve.entity.Reserva;
-import com.domhelder.reserve.entity.Sala;
 import com.domhelder.reserve.entity.StatusReserva;
 import com.domhelder.reserve.service.ReservaService;
 import com.domhelder.reserve.utils.UUIDutils;
 
 import jakarta.persistence.EntityNotFoundException;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +26,7 @@ public class ReservaController {
     }
 
     @PostMapping
+    @RequestMapping("/criar")
     public ResponseEntity<Reserva> criarReserva(@RequestBody ReservaDTO reservaDTO) {
         Reserva reservaCriada = reservaService.createReserva(reservaDTO);
         return new ResponseEntity<>(reservaCriada, HttpStatus.CREATED);
@@ -61,5 +59,19 @@ public class ReservaController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao editar reserva"); // HTTP 500
     }
  }
+
+    @DeleteMapping
+    @RequestMapping("/deletar/{uuidString}")
+    public ResponseEntity<?> deletarReserva(@PathVariable String uuidString) {
+        try {
+            UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
+            reservaService.deleteReserva(uuid);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // HTTP 204 No Content
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reserva não encontrada"); // HTTP 404
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar reserva"); // HTTP 500
+        }
+    }
     
 }
