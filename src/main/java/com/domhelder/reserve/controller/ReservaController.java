@@ -33,7 +33,7 @@ public class ReservaController {
     }
 
     @GetMapping
-    @RequestMapping("/{status}")
+    @RequestMapping("/{uuid}/{status}")
     public ResponseEntity<List<Reserva>> listReservasBySala(
             @PathVariable UUID uuid,
             @PathVariable StatusReserva status){
