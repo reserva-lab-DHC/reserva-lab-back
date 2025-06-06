@@ -2,6 +2,7 @@ package com.domhelder.reserve.dto;
 
 import com.domhelder.reserve.entity.UserRoles;
 
+
 public class UserDTO {
     private String email;
     private String userName;

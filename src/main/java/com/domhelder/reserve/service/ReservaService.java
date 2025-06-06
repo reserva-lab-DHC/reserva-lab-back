@@ -27,6 +27,7 @@ public class ReservaService {
         this.salaRepository = salaRepository;
     }
 
+    // Create 
     public Reserva createReserva(ReservaDTO reservaDTO) {
         Reserva reserva = new Reserva();
 
@@ -57,7 +58,7 @@ public class ReservaService {
 
         return reservaRepository.save(reserva);
     }
-
+    // Read
     public List<Reserva> listReservaBySala(UUID uuid, StatusReserva status){
         if (StatusReserva.ALL.equals(status)){
             return reservaRepository.findBySalaReservada_Id(uuid);
@@ -65,6 +66,43 @@ public class ReservaService {
         else {
             return reservaRepository.findBySalaReservada_IdAndStatus(uuid,status);
         }
+    }
+
+    // Update
+    public Reserva editarReserva(UUID uuid,ReservaDTO reservaDTO) {
+        Reserva reserva = reservaRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+
+        // Atualizar os campos da reserva
+        reserva.setDataReserva(reservaDTO.getDataReserva());
+        reserva.setHorariosReservados(reservaDTO.getHorariosReservados());
+        reserva.setStatus(reservaDTO.getStatus());
+
+        // Buscar o User (solicitante) pelo ID
+        User solicitante = userRepository.findById(reservaDTO.getSolicitanteId())
+                .orElseThrow(() -> new EntityNotFoundException("Solicitante não encontrado"));
+        reserva.setSolicitante(solicitante);
+
+        // Buscar a Sala pelo ID
+        Sala sala = salaRepository.findById(reservaDTO.getSalaReservadaId())
+                .orElseThrow(() -> new EntityNotFoundException("Sala não encontrada"));
+        reserva.setSalaReservada(sala);
+
+        // Setar campos adicionais
+        reserva.setDisciplinaRelacionada(reservaDTO.getDisciplinaRelacionada());
+        reserva.setMotivoReserva(reservaDTO.getMotivoReserva());
+        reserva.setDataSolicitacao(reservaDTO.getDataSolicitacao());
+        reserva.setDataConclusao(reservaDTO.getDataConclusao());
+
+        return reservaRepository.save(reserva);
+    }
+
+    // Delete
+    public void deleteReserva(UUID uuid){
+        Reserva reserva = reservaRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+        reservaRepository.delete(reserva);
+
     }
 
 }
