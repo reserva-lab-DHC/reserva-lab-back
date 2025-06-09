@@ -60,8 +60,7 @@ public class ReservaController {
     }
  }
 
-    @DeleteMapping
-    @RequestMapping("/{uuidString}")
+    @DeleteMapping("/{uuidString}")
     public ResponseEntity<?> deletarReserva(@PathVariable String uuidString) {
         try {
             UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
