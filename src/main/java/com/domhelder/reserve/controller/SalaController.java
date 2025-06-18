@@ -47,6 +47,17 @@ public class SalaController {
         return new String();
     }
 
+        @GetMapping()
+    public ResponseEntity<?> ListAllSalas(){
+        try {
+            List<Sala> salaList = salaService.getAllSalas();
+            return ResponseEntity.status(HttpStatus.OK).body(salaList); // Retorna HTTP 200 OK com a lista de salas
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao listar salas: " + e.getMessage()); // HTTP 500
+        }
+    }
+
     @PutMapping("/{uuidString}")
     public ResponseEntity<?> editarSala(
         @PathVariable String uuidString,

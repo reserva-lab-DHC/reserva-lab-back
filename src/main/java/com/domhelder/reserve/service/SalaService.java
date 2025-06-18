@@ -18,6 +18,10 @@ public class SalaService {
         this.salaRepository = salaRepository;
     }
 
+        public List<Sala> getAllSalas() {
+        return salaRepository.findAll();
+    }
+    
     public Sala createSala(SalaDTO salaDTO){
         Sala sala = new Sala();
         sala.setNomeSala(salaDTO.getNomeSala());
