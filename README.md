@@ -1,6 +1,9 @@
 # Introdução?
 Repositório dedicado para a aplicação back end da disciplina PI-2. Uma solução para monitorar as reservas de laboratórios da Escola Superior Dom Helder Câmara.
 
+# Como rodar local a release?
+Basta definir a versao do java do computador como no mínimo o Java 21 (Recomendado Java 21) e rodar o .jar da release, a aplicacao irá rodar na porta `http://localhost:8080` então, as requests devem ser feitas nele
+
 # Dicas
  - Clean code
    * (https://medium.com/arctouch/5-dicas-pr%C3%A1ticas-de-clean-code-que-todo-desenvolvedor-deveria-adotar-985e6b668544)
