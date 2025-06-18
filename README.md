@@ -124,6 +124,12 @@ Este controlador é responsável por gerenciar as salas.
   - `404 Not Found`: Retorna uma mensagem de erro se a sala não for encontrada.
   - `500 Internal Server Error`: Retorna uma mensagem de erro genérica.
 
+#### **5. Obter todas as Salas**
+- **Endpoint:** `GET /sala`
+- **Descrição:** Retorna um array com todas as salas.
+- **Respostas:**
+  - `200 OK`: Retorna o objeto `List<Sala>`.
+  - `404 Not Found`: Se a sala não for encontrada.
 ---
 
 ### `ReservaController`
