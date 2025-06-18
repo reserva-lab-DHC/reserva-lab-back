@@ -7,6 +7,7 @@ import com.domhelder.reserve.utils.UUIDutils;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;

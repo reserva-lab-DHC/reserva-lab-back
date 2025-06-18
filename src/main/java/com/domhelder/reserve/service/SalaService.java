@@ -6,6 +6,7 @@ import com.domhelder.reserve.repository.SalaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
