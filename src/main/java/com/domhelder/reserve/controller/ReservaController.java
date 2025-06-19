@@ -42,6 +42,13 @@ public class ReservaController {
         return ResponseEntity.status(HttpStatus.OK).body(reservaList);
     }
 
+    @GetMapping
+    @RequestMapping("list/{status}")
+    public ResponseEntity<List<Reserva>> listReservasByStatus(@PathVariable StatusReserva status){
+        List<Reserva> reservaList = reservaService.listReservaByStatus(status);
+        return ResponseEntity.status(HttpStatus.OK).body(reservaList);
+    }
+
     @PutMapping
     @RequestMapping("/{uuidString}")
     public ResponseEntity<?> editarReserva(

@@ -12,4 +12,5 @@ import java.util.UUID;
 public interface ReservaRepository extends JpaRepository<Reserva, UUID>{
     List<Reserva> findBySalaReservada_Id(UUID salaId);
     List<Reserva> findBySalaReservada_IdAndStatus(UUID salaId, StatusReserva status);
+    List<Reserva> findByStatus(StatusReserva status);
 }

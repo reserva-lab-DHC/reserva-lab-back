@@ -68,6 +68,15 @@ public class ReservaService {
         }
     }
 
+    public List<Reserva> listReservaByStatus(StatusReserva status){
+        if (StatusReserva.ALL.equals(status)){
+            return reservaRepository.findAll();
+        }
+        else {
+            return reservaRepository.findByStatus(status);
+        }
+    }
+
     // Update
     public Reserva editarReserva(UUID uuid,ReservaDTO reservaDTO) {
         Reserva reserva = reservaRepository.findById(uuid)
