@@ -167,8 +167,17 @@ Este controlador gerencia as reservas de salas.
   - `status` (StatusReserva): O status da reserva (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`).
 - **Respostas:**
   - `200 OK`: Retorna uma lista de objetos `Reserva`.
+ 
+ #### **3. Listar Reservas por Status**
+- **Endpoint:** `GET /reserva/list/{status}`
+- **Descrição:** Lista todas as reservas, filtradas por status.
+- **Parâmetros de Caminho:**
+  - `status` (StatusReserva): O status da reserva (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`).
+- **Respostas:**
+  - `200 OK`: Retorna uma lista de objetos `Reserva`.
 
-#### **3. Editar Reserva**
+
+#### **4. Editar Reserva**
 - **Endpoint:** `PUT /reserva/{uuidString}`
 - **Descrição:** Edita uma reserva existente.
 - **Parâmetros de Caminho:**
@@ -179,7 +188,7 @@ Este controlador gerencia as reservas de salas.
   - `404 Not Found`: Se a reserva não for encontrada.
   - `500 Internal Server Error`: Se ocorrer um erro ao editar a reserva.
 
-#### **4. Deletar Reserva**
+#### **5. Deletar Reserva**
 - **Endpoint:** `DELETE /reserva/{uuidString}`
 - **Descrição:** Deleta uma reserva.
 - **Parâmetros de Caminho:**
