@@ -2,6 +2,7 @@ package com.domhelder.reserve.service;
 
 import com.domhelder.reserve.dto.SalaDTO;
 import com.domhelder.reserve.entity.Sala;
+import com.domhelder.reserve.exception.DuplicatedResourceException;
 import com.domhelder.reserve.repository.SalaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,7 +24,10 @@ public class SalaService {
         return salaRepository.findAll();
     }
     
-    public Sala createSala(SalaDTO salaDTO){
+    public Sala createSala(SalaDTO salaDTO) throws Exception {
+        if (salaRepository.existsByNomeSala(salaDTO.getNomeSala())) {
+            throw new DuplicatedResourceException("Sala já cadastrada: " + salaDTO.getNomeSala());
+        }
         Sala sala = new Sala();
         sala.setNomeSala(salaDTO.getNomeSala());
         sala.setAndar(salaDTO.getAndar());

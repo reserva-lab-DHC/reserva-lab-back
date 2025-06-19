@@ -27,7 +27,7 @@ public class SalaController {
 
     
     @PostMapping()
-    public ResponseEntity<Sala> criarSala(@RequestBody SalaDTO salaDTO){
+    public ResponseEntity<Sala> criarSala(@RequestBody SalaDTO salaDTO) throws Exception {
         Sala createdSala = salaService.createSala(salaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSala);
     }
@@ -40,7 +40,7 @@ public class SalaController {
             return ResponseEntity.ok(sala);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(null); // Retorna HTTP 404 se a sala não for encontrada
+                    .body(null);
         }
     }
 
