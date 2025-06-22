@@ -136,64 +136,151 @@ Este controlador é responsável por gerenciar as salas.
 ---
 
 ### `ReservaController`
-**Caminho base:** `/reserva`
 
-Este controlador gerencia as reservas de salas.
+**Caminho base:** `/reserva`  
+Controlador responsável por gerenciar as reservas de salas.
 
-#### **1. Criar Reserva**
+---
+
+### **1. Criar Reserva**
+
 - **Endpoint:** `POST /reserva`
-- **Descrição:** Cria uma nova reserva para uma sala.
+- **Descrição:** Cria uma nova reserva de sala.
 - **Corpo da Requisição:** `ReservaDTO`
-  ```json
-  {
-    "dataReserva": "YYYY-MM-DD",
-    "horariosReservados": ["H08_00", "H08_50"],
-    "status": "PENDENTE",
-    "solicitanteId": "uuid-string",
-    "salaReservadaId": "uuid-string",
-    "disciplinaRelacionada": "string",
-    "motivoReserva": "string",
-    "dataSolicitacao": "YYYY-MM-DDTHH:mm:ss"
-  }
-  ```
-- **Respostas:**
-  - `201 Created`: Retorna o objeto `Reserva` criado.
 
-#### **2. Listar Reservas por Sala e Status**
+```json
+{
+  "dataReserva": "2025-06-24",
+  "diasReservados": [
+    {
+      "diaReserva": "SEG",
+      "horarios": ["H08_00", "H08_50"]
+    },
+    {
+      "diaReserva": "QUA",
+      "horarios": ["H11_40"]
+    }
+  ],
+  "status": "PENDENTE",
+  "solicitanteId": "04e88769-e0fa-421a-a7b9-39e266874549",
+  "salaReservadaId": "2878abd2-d047-4773-888e-a398419820e1",
+  "disciplinaRelacionada": "Banco de DadoSs II",
+  "motivoReserva": "Apresentação de projeto final",
+  "dataInicio": "2025-06-22T00:00:00",
+  "dataConclusao": "2025-09-22T00:00:00"
+}
+
+```
+
+- **Respostas:**
+  - `201 Created`: Reserva criada com sucesso.
+  - `409 Conflict`: Reserva duplicada.
+  - `400 Bad Request`: Erro de validação no corpo da requisição.
+
+---
+
+### **2. Listar Reservas por Sala e Status**
+
 - **Endpoint:** `GET /reserva/{uuid}/{status}`
-- **Descrição:** Lista todas as reservas para uma sala específica, filtradas por status.
+- **Descrição:** Lista reservas de uma sala específica, filtradas por status.
 - **Parâmetros de Caminho:**
-  - `uuid` (UUID): O UUID da sala.
-  - `status` (StatusReserva): O status da reserva (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`).
-- **Respostas:**
-  - `200 OK`: Retorna uma lista de objetos `Reserva`.
+  - `uuid` (UUID): ID da sala.
+  - `status` (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`)
+- **Resposta:**
+  - `200 OK`: Lista de reservas.
  
- #### **3. Listar Reservas por Status**
+  O esperado de se receber é algo como:
+```json
+[
+    {
+        "id": "9b8b272e-0ae8-4272-94a8-2ad3c47d5cac",
+        "dataReserva": "2025-06-24",
+        "diasReservados": null,
+        "status": "PENDENTE",
+        "solicitante": {
+            "id": "04e88769-e0fa-421a-a7b9-39e266874549",
+            "email": "joaozinho@email.com",
+            "role": "ALUNO",
+            "userName": "joaozinho",
+            "validUser": true,
+            "createdAt": "2025-06-11T21:40:21.518719"
+        },
+        "salaReservada": {
+            "id": "2878abd2-d047-4773-888e-a398419820e1",
+            "nomeSala": "sala1",
+            "predio": 1,
+            "andar": 3
+        },
+        "disciplinaRelacionada": "Banco de DadoSs II",
+        "motivoReserva": "Apresentação de projeto final",
+        "dataInicio": "2025-06-22T00:00:00",
+        "dataConclusao": "2025-09-22T00:00:00",
+        "dataDaSolicitacao": "2025-06-22T19:40:58.027386"
+    },
+    {
+        "id": "256b2244-ebaf-49df-9165-e2bc1e654938",
+        "dataReserva": "2025-06-24",
+        "diasReservados": null,
+        "status": "PENDENTE",
+        "solicitante": {
+            "id": "04e88769-e0fa-421a-a7b9-39e266874549",
+            "email": "joaozinho@email.com",
+            "role": "ALUNO",
+            "userName": "joaozinho",
+            "validUser": true,
+            "createdAt": "2025-06-11T21:40:21.518719"
+        },
+        "salaReservada": {
+            "id": "2878abd2-d047-4773-888e-a398419820e1",
+            "nomeSala": "sala1",
+            "predio": 1,
+            "andar": 3
+        },
+        "disciplinaRelacionada": "Banco de DadoSs II",
+        "motivoReserva": "Apresentação de projeto final",
+        "dataInicio": "2025-06-22T00:00:00",
+        "dataConclusao": "2025-09-22T00:00:00",
+        "dataDaSolicitacao": "2025-06-22T19:45:54.575201"
+    }
+]
+```
+
+---
+
+### **3. Listar Reservas por Status**
+
 - **Endpoint:** `GET /reserva/list/{status}`
-- **Descrição:** Lista todas as reservas, filtradas por status.
+- **Descrição:** Lista todas as reservas com base no status.
 - **Parâmetros de Caminho:**
-  - `status` (StatusReserva): O status da reserva (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`).
-- **Respostas:**
-  - `200 OK`: Retorna uma lista de objetos `Reserva`.
+  - `status` (`PENDENTE`, `APROVADA`, `REJEITADA`, `CANCELADA`, `ALL`)
+- **Resposta:**
+  - `200 OK`: Lista de reservas.
+    
+ o esperado de se receber é algo como o `Listar Reservas por Sala e Status`
 
+---
 
-#### **4. Editar Reserva**
+### **4. Editar Reserva**
+
 - **Endpoint:** `PUT /reserva/{uuidString}`
-- **Descrição:** Edita uma reserva existente.
+- **Descrição:** Atualiza uma reserva existente.
 - **Parâmetros de Caminho:**
-  - `uuidString` (string): O UUID da reserva a ser editada.
-- **Corpo da Requisição:** `ReservaDTO`
+  - `uuidString` (UUID): ID da reserva.
+- **Corpo da Requisição:** `ReservaDTO` (igual ao de criação)
 - **Respostas:**
-  - `200 OK`: Retorna o objeto `Reserva` atualizado.
-  - `404 Not Found`: Se a reserva não for encontrada.
-  - `500 Internal Server Error`: Se ocorrer um erro ao editar a reserva.
+  - `200 OK`: Reserva atualizada.
+  - `404 Not Found`: Reserva não encontrada.
+  - `500 Internal Server Error`: Erro inesperado ao editar.
 
-#### **5. Deletar Reserva**
+---
+
+### **5. Deletar Reserva**
+
 - **Endpoint:** `DELETE /reserva/{uuidString}`
-- **Descrição:** Deleta uma reserva.
+- **Descrição:** Remove uma reserva existente.
 - **Parâmetros de Caminho:**
-  - `uuidString` (string): O UUID da reserva a ser deletada.
+  - `uuidString` (UUID): ID da reserva.
 - **Respostas:**
-  - `204 No Content`: Indica que a reserva foi deletada com sucesso.
-  - `404 Not Found`: Se a reserva não for encontrada.
-  - `500 Internal Server Error`: Se ocorrer um erro ao deletar a reserva.
+  - `204 No Content`: Reserva deletada com sucesso.
+  - `404 Not Found`: Reserva não encontrada.
+  - `500 Internal Server Error`: Erro inesperado ao deletar.
