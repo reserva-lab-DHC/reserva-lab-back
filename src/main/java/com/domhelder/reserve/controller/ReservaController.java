@@ -20,21 +20,19 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/reserva")
 public class ReservaController {
-    private ReservaService reservaService;
+    private final ReservaService reservaService;
 
     public ReservaController(ReservaService reservaService) {
         this.reservaService = reservaService;
     }
 
     @PostMapping
-    @RequestMapping()
     public ResponseEntity<Reserva> criarReserva(@RequestBody ReservaDTO reservaDTO) {
         Reserva reservaCriada = reservaService.createReserva(reservaDTO);
         return new ResponseEntity<>(reservaCriada, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @RequestMapping("/{uuid}/{status}")
+    @GetMapping("/{uuid}/{status}")
     public ResponseEntity<List<Reserva>> listReservasBySala(
             @PathVariable UUID uuid,
             @PathVariable StatusReserva status){
@@ -42,43 +40,38 @@ public class ReservaController {
         return ResponseEntity.status(HttpStatus.OK).body(reservaList);
     }
 
-    @GetMapping
-    @RequestMapping("list/{status}")
+    @GetMapping("/list/{status}")
     public ResponseEntity<List<Reserva>> listReservasByStatus(@PathVariable StatusReserva status){
         List<Reserva> reservaList = reservaService.listReservaByStatus(status);
         return ResponseEntity.status(HttpStatus.OK).body(reservaList);
     }
 
-    @PutMapping
-    @RequestMapping("/{uuidString}")
+    @PutMapping("/{uuidString}")
     public ResponseEntity<?> editarReserva(
-            @PathVariable String uuidString, 
+            @PathVariable String uuidString,
             @RequestBody ReservaDTO reservaDTO) {
-       
+
         try {
-        // Converte a string UUID para um objeto UUID
-        UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
-        // Chama o serviço para editar a reserva
-        Reserva reservaAtualizada = reservaService.editarReserva(uuid, reservaDTO);
-        return ResponseEntity.ok(reservaAtualizada); // HTTP 200 OK
-    } catch (EntityNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reserva não encontrada"); // HTTP 404
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao editar reserva"); // HTTP 500
+            UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
+            Reserva reservaAtualizada = reservaService.editarReserva(uuid, reservaDTO);
+            return ResponseEntity.ok(reservaAtualizada);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao editar reserva");
+        }
     }
- }
 
     @DeleteMapping("/{uuidString}")
     public ResponseEntity<?> deletarReserva(@PathVariable String uuidString) {
         try {
             UUID uuid = UUIDutils.convertStringtoUUID(uuidString);
             reservaService.deleteReserva(uuid);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // HTTP 204 No Content
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reserva não encontrada"); // HTTP 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar reserva"); // HTTP 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar reserva");
         }
     }
-    
 }

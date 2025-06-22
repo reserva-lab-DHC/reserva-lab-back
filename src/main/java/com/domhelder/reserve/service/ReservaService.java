@@ -32,7 +32,7 @@ public class ReservaService {
         Reserva reserva = new Reserva();
 
         reserva.setDataReserva(reservaDTO.getDataReserva());
-        reserva.setHorariosReservados(reservaDTO.getHorariosReservados());
+        reserva.setDiasReservados(reservaDTO.getDiasReservados()); // <-- aqui mudou
         reserva.setStatus(reservaDTO.getStatus());
 
         // Buscar o User (solicitante) pelo ID
@@ -48,7 +48,7 @@ public class ReservaService {
         // Setar campos adicionais
         reserva.setDisciplinaRelacionada(reservaDTO.getDisciplinaRelacionada());
         reserva.setMotivoReserva(reservaDTO.getMotivoReserva());
-        reserva.setDataSolicitacao(reservaDTO.getDataSolicitacao());
+        reserva.setDataInicio(reservaDTO.getDataInicio());
         reserva.setDataConclusao(reservaDTO.getDataConclusao());
 
         // Se o ID vier no DTO (para atualização), setar também
@@ -78,13 +78,13 @@ public class ReservaService {
     }
 
     // Update
-    public Reserva editarReserva(UUID uuid,ReservaDTO reservaDTO) {
+    public Reserva editarReserva(UUID uuid, ReservaDTO reservaDTO) {
         Reserva reserva = reservaRepository.findById(uuid)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
 
         // Atualizar os campos da reserva
         reserva.setDataReserva(reservaDTO.getDataReserva());
-        reserva.setHorariosReservados(reservaDTO.getHorariosReservados());
+        reserva.setDiasReservados(reservaDTO.getDiasReservados()); // << mudou aqui
         reserva.setStatus(reservaDTO.getStatus());
 
         // Buscar o User (solicitante) pelo ID
@@ -100,7 +100,7 @@ public class ReservaService {
         // Setar campos adicionais
         reserva.setDisciplinaRelacionada(reservaDTO.getDisciplinaRelacionada());
         reserva.setMotivoReserva(reservaDTO.getMotivoReserva());
-        reserva.setDataSolicitacao(reservaDTO.getDataSolicitacao());
+        reserva.setDataInicio(reservaDTO.getDataInicio());
         reserva.setDataConclusao(reservaDTO.getDataConclusao());
 
         return reservaRepository.save(reserva);

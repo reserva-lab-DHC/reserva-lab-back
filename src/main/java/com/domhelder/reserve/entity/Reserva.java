@@ -3,6 +3,7 @@ package com.domhelder.reserve.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,11 +17,8 @@ public class Reserva {
     @Column(nullable = false)
     private LocalDate dataReserva;
 
-    @ElementCollection(targetClass = Horarios.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "reserva_horarios", joinColumns = @JoinColumn(name = "reserva_id"))
-    @Column(name = "horario")
-    private List<Horarios> horariosReservados;
+    @Transient
+    private List<DiaReserva> diasReservados;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -38,17 +36,26 @@ public class Reserva {
 
     private String motivoReserva;
 
-    @Column(nullable = false)
-    private LocalDateTime dataSolicitacao;
+    private LocalDateTime dataInicio;
 
     private LocalDateTime dataConclusao;
 
-    public Reserva() {}
+    @Column(nullable = false)
+    private LocalDateTime dataDaSolicitacao;
 
+
+    public Reserva() {
+        this.dataDaSolicitacao = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+    }
+
+    // Getters e Setters
     public UUID getId() {
         return id;
     }
 
+    public LocalDateTime getDataDaSolicitacao() {
+        return dataDaSolicitacao;
+    }
     public void setId(UUID id) {
         this.id = id;
     }
@@ -61,12 +68,12 @@ public class Reserva {
         this.dataReserva = dataReserva;
     }
 
-    public List<Horarios> getHorariosReservados() {
-        return horariosReservados;
+    public List<DiaReserva> getDiasReservados() {
+        return diasReservados;
     }
 
-    public void setHorariosReservados(List<Horarios> horariosReservados) {
-        this.horariosReservados = horariosReservados;
+    public void setDiasReservados(List<DiaReserva> diasReservados) {
+        this.diasReservados = diasReservados;
     }
 
     public StatusReserva getStatus() {
@@ -109,12 +116,12 @@ public class Reserva {
         this.motivoReserva = motivoReserva;
     }
 
-    public LocalDateTime getDataSolicitacao() {
-        return dataSolicitacao;
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataSolicitacao(LocalDateTime dataSolicitacao) {
-        this.dataSolicitacao = dataSolicitacao;
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
     public LocalDateTime getDataConclusao() {

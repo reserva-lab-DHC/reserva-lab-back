@@ -1,6 +1,6 @@
 package com.domhelder.reserve.dto;
 
-import com.domhelder.reserve.entity.Horarios;
+import com.domhelder.reserve.entity.DiaReserva;
 import com.domhelder.reserve.entity.StatusReserva;
 
 import java.time.LocalDate;
@@ -9,15 +9,16 @@ import java.util.List;
 import java.util.UUID;
 
 public class ReservaDTO {
+
     private UUID id;
     private LocalDate dataReserva;
-    private List<Horarios> horariosReservados;
+    private List<DiaReserva> diasReservados;
     private StatusReserva status;
     private UUID solicitanteId;
     private UUID salaReservadaId;
     private String disciplinaRelacionada;
     private String motivoReserva;
-    private LocalDateTime dataSolicitacao;
+    private LocalDateTime dataInicio;
     private LocalDateTime dataConclusao;
 
     // Getters e Setters
@@ -38,12 +39,12 @@ public class ReservaDTO {
         this.dataReserva = dataReserva;
     }
 
-    public List<Horarios> getHorariosReservados() {
-        return horariosReservados;
+    public List<DiaReserva> getDiasReservados() {
+        return diasReservados;
     }
 
-    public void setHorariosReservados(List<Horarios> horariosReservados) {
-        this.horariosReservados = horariosReservados;
+    public void setDiasReservados(List<DiaReserva> diasReservados) {
+        this.diasReservados = diasReservados;
     }
 
     public StatusReserva getStatus() {
@@ -86,12 +87,12 @@ public class ReservaDTO {
         this.motivoReserva = motivoReserva;
     }
 
-    public LocalDateTime getDataSolicitacao() {
-        return dataSolicitacao;
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataSolicitacao(LocalDateTime dataSolicitacao) {
-        this.dataSolicitacao = dataSolicitacao;
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
     public LocalDateTime getDataConclusao() {
