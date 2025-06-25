@@ -284,3 +284,46 @@ Controlador responsável por gerenciar as reservas de salas.
   - `204 No Content`: Reserva deletada com sucesso.
   - `404 Not Found`: Reserva não encontrada.
   - `500 Internal Server Error`: Erro inesperado ao deletar.
+
+
+---
+
+### USEFULL ENUMS
+
+```java
+public enum Horarios {
+        H07_40,
+        H09_40,
+        H13_00,
+        H15_00,
+        H18_20,
+        H20_20,
+        //  THESE TIMES BELLOW IS FOR TESTS ONLY, AND WILL BE MAINTAINED
+        //  ||
+        //  \/
+        H08_00,
+        H08_50,
+        H10_00,
+        H11_40
+}
+
+public enum DiasSemana {
+    SEG,
+    TER,
+    QUA,
+    QUI,
+    SEX,
+    SAB,
+    DOM
+}
+
+
+public enum StatusReserva {
+    PENDENTE,
+    APROVADA,
+    REJEITADA,
+    CANCELADA,
+    ALL;
+}
+
+```
