@@ -126,7 +126,8 @@ Este controlador é responsável por gerenciar as salas.
     {
       "nomeSala": "string",
       "predio": integer,
-      "andar": integer
+      "andar": integer,
+      "image": integer
     }
     ```
   - **Respostas:**
