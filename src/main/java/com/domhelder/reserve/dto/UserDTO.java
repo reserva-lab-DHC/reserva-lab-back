@@ -1,12 +1,24 @@
 package com.domhelder.reserve.dto;
 
 import com.domhelder.reserve.entity.UserRoles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class UserDTO {
     private String email;
     private String userName;
     private UserRoles role;
+
+    private String rawPassord;
+
+    public String getRawPassord() {
+        return rawPassord;
+    }
+
+    public void setRawPassord(String rawPassord) {
+        this.rawPassord = rawPassord;
+    }
 
     public String getEmail() {
         return email;

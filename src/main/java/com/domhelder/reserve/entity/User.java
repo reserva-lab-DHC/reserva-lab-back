@@ -1,5 +1,7 @@
 package com.domhelder.reserve.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Builder;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -28,6 +30,17 @@ public class User {
     private boolean validUser;
 
     private LocalDateTime createdAt;
+
+    @JsonIgnore
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;

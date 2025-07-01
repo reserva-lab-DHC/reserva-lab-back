@@ -24,13 +24,13 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<User> criarUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> criarUser(@RequestBody UserDTO userDTO) {
         try {
             User createdUser = userService.createUser(userDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdUser); // HTTP 201 Created
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(null); // HTTP 500 se ocorrer um erro
+                    .body(e); // HTTP 500 se ocorrer um erro
         }
     }
 

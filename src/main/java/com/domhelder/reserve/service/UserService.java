@@ -5,6 +5,8 @@ import com.domhelder.reserve.entity.User;
 import com.domhelder.reserve.repository.UserRepository;
 
 import java.util.UUID;
+
+import com.domhelder.reserve.utils.CriptografiaSenha;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,7 @@ public class UserService {
         user.setRole(userDTO.getRole());
         user.setEmail(userDTO.getEmail());
         user.setValidUser(true);
+        user.setPassword(CriptografiaSenha.criptografarSenha(userDTO.getRawPassord()));
         return userRepository.save(user);
     }
 
