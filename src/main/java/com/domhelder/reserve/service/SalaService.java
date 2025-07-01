@@ -32,6 +32,7 @@ public class SalaService {
         sala.setNomeSala(salaDTO.getNomeSala());
         sala.setAndar(salaDTO.getAndar());
         sala.setPredio(salaDTO.getPredio());
+        sala.setImage(salaDTO.getImage());
         return salaRepository.save(sala);
     }
 
@@ -42,6 +43,7 @@ public class SalaService {
         salaEditada.setNomeSala(salaDTO.getNomeSala());
         salaEditada.setAndar(salaDTO.getAndar());
         salaEditada.setPredio(salaDTO.getPredio());
+        salaEditada.setImage(salaDTO.getImage());
         
         return salaRepository.save(salaEditada);
    }

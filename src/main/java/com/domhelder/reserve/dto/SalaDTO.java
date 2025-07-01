@@ -2,12 +2,20 @@ package com.domhelder.reserve.dto;
 
 
 
-
 public class SalaDTO {
     private String nomeSala;
     private int predio;
     private int andar;
-    
+    private int image;
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
     public String getNomeSala() {
         return nomeSala;
     }

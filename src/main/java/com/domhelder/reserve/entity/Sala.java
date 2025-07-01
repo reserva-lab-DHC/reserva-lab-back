@@ -19,6 +19,17 @@ public class Sala {
 
     private int andar;
 
+    @Column(nullable = true)
+    private int image;
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
     public String getNomeSala() {
         return nomeSala;
     }
