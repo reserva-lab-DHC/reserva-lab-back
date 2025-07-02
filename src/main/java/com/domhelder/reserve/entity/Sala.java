@@ -19,7 +19,6 @@ public class Sala {
 
     private int andar;
 
-    @Column(nullable = true)
     private int image;
 
     public int getImage() {
