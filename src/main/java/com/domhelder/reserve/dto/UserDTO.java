@@ -10,14 +10,14 @@ public class UserDTO {
     private String userName;
     private UserRoles role;
 
-    private String rawPassord;
+    private String rawPassword;
 
-    public String getRawPassord() {
-        return rawPassord;
+    public String getRawPassword() {
+        return rawPassword;
     }
 
-    public void setRawPassord(String rawPassord) {
-        this.rawPassord = rawPassord;
+    public void setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
     }
 
     public String getEmail() {

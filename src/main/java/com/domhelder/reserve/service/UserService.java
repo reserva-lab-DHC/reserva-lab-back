@@ -24,7 +24,7 @@ public class UserService {
         user.setRole(userDTO.getRole());
         user.setEmail(userDTO.getEmail());
         user.setValidUser(true);
-        user.setPassword(CriptografiaSenha.criptografarSenha(userDTO.getRawPassord()));
+        user.setPassword(CriptografiaSenha.criptografarSenha(userDTO.getRawPassword()));
         return userRepository.save(user);
     }
 
