@@ -21,6 +21,17 @@ public class Sala {
 
     private int image;
 
+    @Column(nullable = false)
+    private boolean isAvailable = true;
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     public int getImage() {
         return image;
     }

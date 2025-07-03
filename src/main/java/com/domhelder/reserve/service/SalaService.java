@@ -44,6 +44,7 @@ public class SalaService {
         salaEditada.setAndar(salaDTO.getAndar());
         salaEditada.setPredio(salaDTO.getPredio());
         salaEditada.setImage(salaDTO.getImage());
+        salaEditada.setAvailable(salaDTO.isAvailable() != null ? salaDTO.isAvailable() : salaEditada.isAvailable());
         
         return salaRepository.save(salaEditada);
    }

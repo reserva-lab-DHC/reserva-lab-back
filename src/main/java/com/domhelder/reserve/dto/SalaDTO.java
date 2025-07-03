@@ -1,12 +1,20 @@
 package com.domhelder.reserve.dto;
 
 
+import jakarta.annotation.Nullable;
 
 public class SalaDTO {
     private String nomeSala;
     private int predio;
     private int andar;
     private int image;
+
+    @Nullable
+    private Boolean isAvailable;
+
+    public Boolean isAvailable() { return isAvailable; }
+
+    public void setAvailable(Boolean available) { isAvailable = available; }
 
     public int getImage() {
         return image;
