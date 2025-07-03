@@ -25,7 +25,8 @@ public class User {
     @Builder.Default
     private UserRoles role = UserRoles.ALUNO;
 
-    private String userName;
+    @Column(name = "user_name")
+    private String username;
 
     private boolean validUser;
 
@@ -58,12 +59,12 @@ public class User {
         this.role = role;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isValidUser() {

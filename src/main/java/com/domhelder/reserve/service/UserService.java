@@ -20,7 +20,7 @@ public class UserService {
     // Create
     public User createUser(UserDTO userDTO){
         User user = new User();
-        user.setUserName(userDTO.getUserName());
+        user.setUsername(userDTO.getUsername());
         user.setRole(userDTO.getRole());
         user.setEmail(userDTO.getEmail());
         user.setValidUser(true);
@@ -33,7 +33,7 @@ public class UserService {
         User user = userRepository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + uuid));
         
-        user.setUserName(userDTO.getUserName());
+        user.setUsername(userDTO.getUsername());
         user.setRole(userDTO.getRole());
         user.setEmail(userDTO.getEmail());
         

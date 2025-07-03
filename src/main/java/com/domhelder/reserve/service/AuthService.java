@@ -18,7 +18,7 @@ public class AuthService {
     }
 
     public User verificarSenha(String username, String senhaDigitada) {
-        User usuario = userRepository.getUserByUserName(username);
+        User usuario = userRepository.getUserByUsername(username);
         if (usuario == null) {
             return null;
         }
