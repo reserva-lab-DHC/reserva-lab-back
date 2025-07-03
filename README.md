@@ -61,9 +61,9 @@ Este controlador gerencia as operações CRUD para os usuários.
     ```json
     {
       "email": "string",
-      "userName": "string",
+      "username": "string",
       "role": "ALUNO",
-      "rawPassord": "string"
+      "rawPassword": "string"
     }
     ```
   - **Respostas:**
